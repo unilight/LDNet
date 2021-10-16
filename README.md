@@ -2,6 +2,8 @@
 
 This is the official implementation of the paper "LDNet: Unified Listener Dependent Modeling in MOS Prediction for Synthetic Speech". This is a model that takes an input synthetic speech sample and outputs the simulated human rating.
 
+![Results](./imgs/results.png)
+
 ## Usage
 
 Currently we support only the VCC2018 dataset. We plan to release the BVCC dataset in the near future.
@@ -25,6 +27,14 @@ cd data
 ```
 
 ### Training
+
+We provide configs that correspond to the following rows in the above figure:
+
+- (a): `MBNet.yaml`
+- (d): `LDNet_MobileNetV3_RNN_5e-3.yaml`
+- (e): `LDNet_MobileNetV3_FFN_1e-3.yaml`
+- (f): `LDNet-MN_MobileNetV3_RNN_FFN_1e-3_lamb4.yaml`
+- (g): `LDNet-ML_MobileNetV3_FFN_1e-3.yaml`
 
 ```
 python train.py --config configs/<config_name> --tag <tag_name>
@@ -65,9 +75,12 @@ There are some files you can inspect after the evaluation:
 
 - `<dataset_name>_<inference_mode>.csv`: the validation and test set results.
 - `<dataset_name>_<inference_mode>_<test/valid>/`: figures that visualize the prediction distributions, including;
-    - `<ep>_distribution.png`: distribution over the score range (1-5).
-    - `<ep>_utt_scatter_plot_utt`: _utterance-wise_ scatter plot of the ground truth and the predicted scores.
-    - `<ep>_sys_scatter_plot_utt`: _system-wise_ scatter plot of the ground truth and the predicted scores.
+    - `<ep>_distribution.png`: distribution over the score range (1-5).  
+        <img src="imgs/60000_distribution.png" width="300"/>
+    - `<ep>_utt_scatter_plot_utt`: _utterance-wise_ scatter plot of the ground truth and the predicted scores.  
+        <img src="imgs/60000_utt_scatter_plot_utt.png" width="300"/>
+    - `<ep>_sys_scatter_plot_utt`: _system-wise_ scatter plot of the ground truth and the predicted scores.  
+        <img src="imgs/60000_sys_scatter_plot_utt.png" width="300"/>
 
 ## Acknowledgement
 
