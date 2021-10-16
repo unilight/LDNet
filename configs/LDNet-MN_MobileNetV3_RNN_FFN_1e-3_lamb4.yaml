@@ -1,0 +1,64 @@
+# model configurations
+model: "LDNet"
+audio_input_dim: 257
+judge_emb_dim: 128
+
+mean_net_type: "ffn"
+mean_net_rnn_dim: 128
+mean_net_dnn_dim: 64
+mean_net_dropout_rate: 0.3
+mean_net_range_clipping: True # this is needed if output_type is scalar
+
+encoder_type: "mobilenetv3"
+encoder_bneck_configs:
+  - [16, 3, 16, 16, True, "RE", 3, 1]
+  - [16, 3, 72, 24, False, "RE", 3, 1]
+  - [24, 3, 88, 24, False, "RE", 1, 1]
+  - [24, 5, 96, 40, True, "HS", 3, 1]
+  - [40, 5, 240, 40, True, "HS", 1, 1]
+  - [40, 5, 240, 40, True, "HS", 1, 1]
+  - [40, 5, 120, 48, True, "HS", 1, 1]
+  - [48, 5, 144, 48, True, "HS", 1, 1]
+  - [48, 5, 288, 96, True, "HS", 3, 1] 
+  - [96, 5, 576, 96, True, "HS", 1, 1]
+  - [96, 5, 576, 96, True, "HS", 1, 1]
+encoder_output_dim: 256
+
+decoder_type: "rnn"
+decoder_rnn_dim: 128
+decoder_dnn_dim: 64
+decoder_dropout_rate: 0.3
+
+activation: "ReLU"
+range_clipping: True # this is needed if output_type is scalar
+combine_mean_score: False
+use_mean_listener: False
+
+output_type: "scalar"
+
+# training configurations
+optimizer:
+  name: "RMSprop"
+  lr: 1.0e-3
+  # the following params come from
+  # https://github.com/pytorch/vision/blob/c2ab0c59f42babf9ad01aa616cd8a901daac86dd/references/classification/train.py#L172-L173
+  eps: 0.0316
+  alpha: 0.9
+scheduler:
+  name: "stepLR"
+  step_size: 1000
+  gamma: 0.97
+train_batch_size: 20
+test_batch_size: 1
+inference_mode: "all_listeners"
+
+use_mean_net: True
+alpha: 1
+lambda: 4
+tau: 0.5
+
+padding_mode: "repetitive" # repetitive, zero_padding
+mask_loss: False
+total_steps: 100000
+valid_steps: 1000
+grad_clip: 1

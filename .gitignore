@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# specific to thie repo
+data/
+*.wav
+exp/
+runs/

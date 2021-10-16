@@ -1,0 +1,43 @@
+# model configurations
+model: "MBNet"
+audio_input_dim: 257
+judge_emb_dim: 86 # simple encoder case
+
+mean_net_input: "audio"
+mean_net_conv_chs: [16, 32, 64, 128]
+mean_net_rnn_dim: 128
+mean_net_dnn_dim: 128
+mean_net_dropout_rate: 0.3
+mean_net_range_clipping: True
+mean_net_output_type: "scalar"
+
+decoder_conv_chs: [32, 32, 32]
+decoder_rnn_dim: 64
+decoder_dnn_dim: 32
+decoder_dropout_rate: 0.3
+
+activation: "ReLU"
+range_clipping: True
+combine_mean_score: True
+use_mean_listener: False
+
+output_type: "scalar"
+
+# training configurations
+optimizer:
+  name: Adam
+  lr: 1.0e-4
+train_batch_size: 64
+test_batch_size: 1
+inference_mode: "mean_net"
+
+use_mean_net: True
+alpha: 1
+lambda: 4
+tau: 0.5
+
+padding_mode: "repetitive" # repetitive, zero_padding
+mask_loss: False
+total_steps: 50000
+valid_steps: 1000
+grad_clip: 1
