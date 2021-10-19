@@ -88,3 +88,16 @@ There are some files you can inspect after the evaluation:
 ## Acknowledgement
 
 This repository inherits from this great [unofficial MBNet implementation](https://github.com/sky1456723/Pytorch-MBNet).
+
+
+## Citation
+
+If you find this recipe useful, please consider citing following paper:
+```
+@article{huang2021ldnet,
+  title={LDNet: Unified Listener Dependent Modeling in MOS Prediction for Synthetic Speech},
+  author={Huang, Wen-Chin and Cooper, Erica and Yamagishi, Junichi and Toda, Tomoki},
+  journal={arXiv preprint arXiv:2110.09103},
+  year={2021}
+}
+```
