@@ -1,5 +1,8 @@
 # LDNet
 
+Author: Wen-Chin Huang (Nagoya University)
+Email: wen.chinhuang@g.sp.m.is.nagoya-u.ac.jp
+
 This is the official implementation of the paper "LDNet: Unified Listener Dependent Modeling in MOS Prediction for Synthetic Speech". This is a model that takes an input synthetic speech sample and outputs the simulated human rating.
 
 ## Usage
