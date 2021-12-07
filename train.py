@@ -33,7 +33,7 @@ def valid(mode, model, dataloader, systems, save_dir, steps, prefix):
     true_sys_mean_scores = {system:[] for system in systems}
     
     for i, batch in enumerate(tqdm(dataloader, ncols=0, desc=prefix, unit=" step")):
-        mag_sgrams_padded, avg_scores, sys_names = batch
+        mag_sgrams_padded, avg_scores, sys_names, wav_names = batch
         mag_sgrams_padded = mag_sgrams_padded.to(device)
 
         # forward

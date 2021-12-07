@@ -5,6 +5,7 @@ import torch
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader
 import pandas as pd
+import scipy
 
 from collections import defaultdict
 import h5py
@@ -225,6 +226,9 @@ class BCVCCDataset(Dataset):
         self.padding_mode = padding_mode
         self.use_mean_listener = use_mean_listener
 
+        # cache features
+        self.features = {}
+
         # add mean listener to metadata
         if use_mean_listener:
             mean_listener_metadata = self.gen_mean_listener_metadata(original_metadata)
@@ -257,16 +261,25 @@ class BCVCCDataset(Dataset):
         else:
             sys_name, wav_name, avg_score = self.metadata[idx]
 
-        h5_path = os.path.join(self.data_dir, "bin", wav_name + ".h5")
-        data_file = h5py.File(h5_path, 'r')
-        mag_sgram = np.array(data_file['mag_sgram'][:])
-        timestep = mag_sgram.shape[0]
-        mag_sgram = np.reshape(mag_sgram,(timestep, SGRAM_DIM))
+        # cache features
+        if wav_name in self.features:
+            mag_sgram = self.features[wav_name]
+        else:
+            h5_path = os.path.join(self.data_dir, "bin", wav_name + ".h5")
+            if os.path.isfile(h5_path):
+                data_file = h5py.File(h5_path, 'r')
+                mag_sgram = np.array(data_file['mag_sgram'][:])
+                timestep = mag_sgram.shape[0]
+                mag_sgram = np.reshape(mag_sgram,(timestep, SGRAM_DIM))
+            else:
+                wav, _ = librosa.load(os.path.join(self.data_dir, "wav", wav_name), sr = 16000)
+                mag_sgram = np.abs(librosa.stft(wav, n_fft = 512, hop_length=256, win_length=512, window=scipy.signal.hamming)).astype(np.float32).T
+            self.features[wav_name] = mag_sgram
 
         if self.split == "train":
             return mag_sgram, avg_score, score, judge_id
         else:
-            return mag_sgram, avg_score, sys_name
+            return mag_sgram, avg_score, sys_name, wav_name
     
     def __len__(self):
         return len(self.metadata)
@@ -319,7 +332,8 @@ class BCVCCDataset(Dataset):
 
         if not self.split == "train":
             sys_names = [sorted_batch[i][2] for i in range(bs)]
-            return mag_sgrams_padded, avg_scores, sys_names
+            wav_names = [sorted_batch[i][3] for i in range(bs)]
+            return mag_sgrams_padded, avg_scores, sys_names, wav_names
         else:
             scores = torch.FloatTensor([sorted_batch[i][2] for i in range(bs)])
             judge_ids = torch.LongTensor([sorted_batch[i][3] for i in range(bs)])

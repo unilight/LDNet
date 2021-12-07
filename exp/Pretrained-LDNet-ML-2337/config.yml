@@ -1,0 +1,131 @@
+activation: ReLU
+alpha: 0
+audio_input_dim: 257
+combine_mean_score: false
+decoder_dnn_dim: 64
+decoder_dropout_rate: 0.3
+decoder_rnn_dim: 128
+decoder_type: ffn
+encoder_bneck_configs:
+- - 16
+  - 3
+  - 16
+  - 16
+  - true
+  - RE
+  - 3
+  - 1
+- - 16
+  - 3
+  - 72
+  - 24
+  - false
+  - RE
+  - 3
+  - 1
+- - 24
+  - 3
+  - 88
+  - 24
+  - false
+  - RE
+  - 1
+  - 1
+- - 24
+  - 5
+  - 96
+  - 40
+  - true
+  - HS
+  - 3
+  - 1
+- - 40
+  - 5
+  - 240
+  - 40
+  - true
+  - HS
+  - 1
+  - 1
+- - 40
+  - 5
+  - 240
+  - 40
+  - true
+  - HS
+  - 1
+  - 1
+- - 40
+  - 5
+  - 120
+  - 48
+  - true
+  - HS
+  - 1
+  - 1
+- - 48
+  - 5
+  - 144
+  - 48
+  - true
+  - HS
+  - 1
+  - 1
+- - 48
+  - 5
+  - 288
+  - 96
+  - true
+  - HS
+  - 3
+  - 1
+- - 96
+  - 5
+  - 576
+  - 96
+  - true
+  - HS
+  - 1
+  - 1
+- - 96
+  - 5
+  - 576
+  - 96
+  - true
+  - HS
+  - 1
+  - 1
+encoder_output_dim: 256
+encoder_type: mobilenetv3
+grad_clip: 1
+inference_mode: mean_listener
+judge_emb_dim: 128
+lambda: 1
+log_steps: 500
+mask_loss: false
+mean_net_dnn_dim: 64
+mean_net_dropout_rate: 0.3
+mean_net_range_clipping: true
+mean_net_rnn_dim: 128
+mean_net_type: ffn
+model: LDNet
+num_judges: 289
+optimizer:
+  alpha: 0.9
+  eps: 0.0316
+  lr: 0.001
+  name: RMSprop
+output_type: scalar
+padding_mode: repetitive
+range_clipping: true
+scheduler:
+  gamma: 0.97
+  name: stepLR
+  step_size: 1000
+tau: 0.5
+test_batch_size: 1
+total_steps: 100000
+train_batch_size: 30
+use_mean_listener: true
+use_mean_net: false
+valid_steps: 1000

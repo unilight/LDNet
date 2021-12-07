@@ -7,11 +7,7 @@ This is the official implementation of the paper "LDNet: Unified Listener Depend
 
 ![Results](./imgs/results.png)
 
-## Usage
-
-Currently we support only the VCC2018 dataset. We plan to release the BVCC dataset in the near future.
-
-### Requirements
+## Requirements
 
 - PyTorch 1.9 (versions not too old should be fine.)
 - librosa
@@ -20,6 +16,12 @@ Currently we support only the VCC2018 dataset. We plan to release the BVCC datas
 - scipy
 - matplotlib
 - tqdm
+
+## Usage
+
+The following instructions are for the VCC2018 benchmark. 
+
+**New**: This system is also one of the baseline systems of the first VoiceMOS Challenge. Please refer to [this document](./VoiceMOS_baseline_README.md) for detailed instructions.
 
 ### Data preparation
 

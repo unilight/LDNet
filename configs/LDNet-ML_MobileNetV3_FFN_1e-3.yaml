@@ -54,5 +54,5 @@ tau: 0.5
 padding_mode: "repetitive" # repetitive, zero_padding
 mask_loss: False
 total_steps: 100000
-valid_steps: 10
+valid_steps: 1000
 grad_clip: 1
