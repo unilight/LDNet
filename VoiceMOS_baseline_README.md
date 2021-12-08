@@ -53,6 +53,25 @@ TODO
 The submission format of the CodaLab competition platform is a zip file (can be any name) containing a text file called `answer.txt` (this naming is a **MUST**).  
 To submit to the CodaLab competition platform, choose one specific checkpoint answer file (i.e. `<epoch>_answer.txt`) and rename it to `answer.txt`. Then, compress it with zip format (via `zip` command in Linux or GUI in MacOS) and name it whatever you want. Then this zip file is ready to be submitted!
 
+### Pretrained model
+
+We provide a pretrained model under `exp/Pretrained-LDNet-ML-2337`. To perform inference with it:
+
+```
+python inference_for_voicemos.py --tag Pretrained-LDNet-ML-2337 --mode mean_listener
+```
+
+And here is what you should get:
+```
+[Info] Number of valid samples: 1066
+[Info] Model parameters: 957057
+=================================================
+[Info] Evaluating ep 27000
+100%|██████████████| 1066/1066 [00:16<00:00, 66.50it/s]
+[UTTERANCE] valid MSE: 0.318, LCC: 0.785, SRCC: 0.787, KTAU: 0.597
+[SYSTEM] valid MSE: 0.110, LCC: 0.925, SRCC: 0.918, KTAU: 0.757
+```
+
 ## Evaluation phase (phase 2)
 
 Will be updated once we enter phase 2!
