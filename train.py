@@ -98,6 +98,11 @@ def main():
     parser.add_argument("--update_freq", type=int, default=1,
                         help="If GPU OOM, decrease the batch size and increase this.")
     parser.add_argument('--seed', default=1337, type=int)
+
+    # finetuning related
+    parser.add_argument("--pretrained_model_path", type=str, default=None)
+    parser.add_argument("--fix_main_module", action="store_true")
+
     args = parser.parse_args()
     
     # Fix seed and make backends deterministic
@@ -146,6 +151,18 @@ def main():
         raise NotImplementedError
     print("[Info] Model parameters: {}".format(model.get_num_params()))
     criterion = Loss(config["output_type"], config["alpha"], config["lambda"], config["tau"], config["mask_loss"])
+
+    # finetune
+    if args.pretrained_model_path is not None:
+        print("[Info] Loading pretrained model from {}".format(args.pretrained_model_path))
+        pretrained_model_state_dict = torch.load(args.pretrained_model_path)
+        pretrained_model_state_dict.pop("judge_embedding.weight", None)
+        model.load_state_dict(pretrained_model_state_dict, strict=False)
+    if args.fix_main_module:
+        for mod, param in model.named_parameters():
+            if mod.startswith("judge_embedding"):
+                print("[Info] Freezing {}".format(mod))
+                param.requires_grad = False
 
     # optimizer
     optimizer = get_optimizer(model, config["total_steps"], config["optimizer"])

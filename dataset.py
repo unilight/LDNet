@@ -340,7 +340,7 @@ class BCVCCDataset(Dataset):
             return mag_sgrams_padded, mag_sgrams_lengths, avg_scores, scores, judge_ids
 
 def get_dataset(dataset_name, data_dir, split, idtable_path=None, padding_mode="zero_padding", use_mean_listener=False):
-    if dataset_name == "BVCC":
+    if dataset_name in ["BVCC", "OOD"]:
         names = {"train":"TRAINSET", "valid":"DEVSET", "test":"TESTSET"}
     
         metadata = defaultdict(dict)
