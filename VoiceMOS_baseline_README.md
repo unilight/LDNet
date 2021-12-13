@@ -53,7 +53,7 @@ We provide two pretrained models. Feel free to use these pretrained models to te
 
 ### Training a LDNet from scratch with the BVCC training set.
 
-Although you can use any config mentioned in the [main README](./README#Training), according to the [results](./imgs/results.png), `LDNet-ML` gives the best results. So, here we demonstrate how to use the `LDNet-ML_MobileNetV3_FFN_1e-3.yaml` config with seed `2337` to perform training:
+Although you can use any config mentioned in the [main README](./README.md#Training), according to the [results](./imgs/results.png), `LDNet-ML` gives the best results. So, here we demonstrate how to use the `LDNet-ML_MobileNetV3_FFN_1e-3.yaml` config with seed `2337` to perform training:
 
 ```
 python train.py --dataset_name BVCC --data_dir ./data/phase1-main/DATA --config configs/LDNet-ML_MobileNetV3_FFN_1e-3.yaml --update_freq 2 --seed 2337 --tag <tag_name>
@@ -81,7 +81,7 @@ This is what can be expected if using the `Pretrained-LDNet-ML-2337` model:
 [SYSTEM] valid MSE: 0.110, LCC: 0.925, SRCC: 0.918, KTAU: 0.757
 ```
 
-All results will be saved in `exp/<tag_name>/BVCC_mean_listener_valid/`, including some figures for inspection (see [here](./README#Inference) for more details) and a file named `<step>_answer.txt`. A summary of the results will also be saved in `exp/<tag_name>/BVCC_mean_listener.csv`. We can use this file to manually choose which checkpoint we want to use.
+All results will be saved in `exp/<tag_name>/BVCC_mean_listener_valid/`, including some figures for inspection (see [here](./README.md#Inference) for more details) and a file named `<step>_answer.txt`. A summary of the results will also be saved in `exp/<tag_name>/BVCC_mean_listener.csv`. We can use this file to manually choose which checkpoint we want to use.
 
 ### Zero-shot inference on the OOD validation set with the LDNet trained on the BVCC training set.
 
